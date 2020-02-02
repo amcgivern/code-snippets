@@ -1,0 +1,42 @@
+/* LeetCode Problem #2 Solution - Add Two Numbers */
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {    
+    return recurse(l1,l2,0);
+};
+var recurse = function(list1,list2,rem){
+    var answer = new ListNode;
+    if (list1 == null){
+        list1 = new ListNode(); 
+        list1.val = 0;
+    }
+    if (list2 == null){
+        list2 = new ListNode(); 
+        list2.val = 0;
+    }
+    
+    answer.val = list1.val + list2.val + rem; 
+
+    rem = 0;
+    if (answer.val / 10 >= 1){
+        answer.val = answer.val % 10; rem = 1;
+    }
+        
+    if (list1.next == null && list2.next == null && rem == 0){
+        return answer;
+    }
+    
+    answer.next = recurse(list1.next,list2.next,rem);
+    return answer;
+    
+}
